@@ -1,10 +1,10 @@
 package com.williamdsw.workshopmongodb.resources;
 
 import com.williamdsw.workshopmongodb.domain.User;
+import com.williamdsw.workshopmongodb.domain.dto.UserDTO;
 import com.williamdsw.workshopmongodb.services.UserService;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,9 +29,10 @@ public class UserResource
     // HELPER FUNCTIONS
     
     @RequestMapping (method = RequestMethod.GET)
-    public ResponseEntity<List<User>> findAll ()
+    public ResponseEntity<List<UserDTO>> findAll ()
     {
         List<User> users = service.findAll ();
-        return ResponseEntity.ok ().body (users);
+        List<UserDTO> usersDto = users.stream ().map (user -> new UserDTO (user)).collect (Collectors.toList ());
+        return ResponseEntity.ok ().body (usersDto);
     }
 }
