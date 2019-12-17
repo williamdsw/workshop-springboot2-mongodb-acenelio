@@ -70,7 +70,7 @@ public class UserResource
     {
         User user = service.fromDTO (dto);
         user.setId (id);
-        user = service.update (user);
+        service.update (user);
         return ResponseEntity.noContent ().build ();
     }
 }
