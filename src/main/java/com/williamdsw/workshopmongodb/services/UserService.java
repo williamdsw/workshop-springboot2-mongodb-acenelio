@@ -1,6 +1,7 @@
 package com.williamdsw.workshopmongodb.services;
 
 import com.williamdsw.workshopmongodb.domain.User;
+import com.williamdsw.workshopmongodb.domain.dto.UserDTO;
 import com.williamdsw.workshopmongodb.repository.UserRepository;
 import com.williamdsw.workshopmongodb.services.exception.ObjectNotFoundException;
 import java.util.List;
@@ -33,5 +34,15 @@ public class UserService
     {
         Optional<User> user = repository.findById (id);
         return user.orElseThrow (() -> new ObjectNotFoundException (String.format ("Usuário não encontrado com id = %s", id)));
+    }
+    
+    public User insert (User user)
+    {
+        return repository.insert (user);
+    }
+    
+    public User fromDTO (UserDTO dto)
+    {
+        return new User (dto.getId (), dto.getName (), dto.getEmail ());
     }
 }
