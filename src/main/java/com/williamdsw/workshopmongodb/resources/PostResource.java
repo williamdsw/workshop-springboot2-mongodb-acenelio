@@ -3,6 +3,7 @@ package com.williamdsw.workshopmongodb.resources;
 import com.williamdsw.workshopmongodb.domain.Post;
 import com.williamdsw.workshopmongodb.resources.utils.URL;
 import com.williamdsw.workshopmongodb.services.PostService;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -43,4 +44,19 @@ public class PostResource
         List<Post> posts = service.findByTitle (value);
         return ResponseEntity.ok ().body (posts);
     }
+    
+    @RequestMapping (method = RequestMethod.GET, value = "/fullsearch")
+    public ResponseEntity<List<Post>> fullSearch (
+            @RequestParam (value = "text", defaultValue = "") String text, 
+            @RequestParam (value = "startDate", defaultValue = "") String startDate, 
+            @RequestParam (value = "endDate", defaultValue = "") String endDate)
+    {
+        text = URL.decodeParameters (text);
+        Date start = URL.convertDate (startDate, new Date (0L));
+        Date end = URL.convertDate (endDate, new Date ());
+        List<Post> posts = service.fullSearch (text, start, end);
+        return ResponseEntity.ok ().body (posts);
+    }
+    
+    
 }

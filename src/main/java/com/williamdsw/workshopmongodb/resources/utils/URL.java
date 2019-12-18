@@ -1,6 +1,12 @@
 package com.williamdsw.workshopmongodb.resources.utils;
 
 import java.net.URLDecoder;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author William
@@ -16,6 +22,20 @@ public class URL
         catch (Exception e)
         {
             return "";
+        }
+    }
+    
+    public static Date convertDate (String textDate, Date defaultDate)
+    {
+        try
+        {
+            SimpleDateFormat format = new SimpleDateFormat ("yyyy-MM-dd");
+            format.setTimeZone (TimeZone.getTimeZone ("GMT"));
+            return format.parse (textDate);
+        }
+        catch (ParseException ex)
+        {
+            return defaultDate;
         }
     }
 }

@@ -3,6 +3,7 @@ package com.williamdsw.workshopmongodb.services;
 import com.williamdsw.workshopmongodb.domain.Post;
 import com.williamdsw.workshopmongodb.repository.PostRepository;
 import com.williamdsw.workshopmongodb.services.exception.ObjectNotFoundException;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +35,12 @@ public class PostService
     {
         //return repository.findByTitleContainingIgnoreCase (title);
         return repository.searchTitle (title);
+    }
+    
+    public List<Post> fullSearch (String text, Date startDate, Date endDate)
+    {
+        long twentyFourHours = (24 * 60 * 60 * 1000);
+        endDate = new Date (endDate.getTime () + twentyFourHours);
+        return repository.fullSearch (text, startDate, endDate);
     }
 }
