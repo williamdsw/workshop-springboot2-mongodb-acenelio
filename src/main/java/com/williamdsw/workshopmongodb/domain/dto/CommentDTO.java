@@ -8,11 +8,17 @@ import java.util.Date;
  */
 public class CommentDTO implements Serializable
 {
+    //------------------------------------------------------------------------//
+    // FIELDS
+    
     private final static long serialVersionUID = 1L;
     private String text;
     private Date date;
     private AuthorDTO author;
 
+    //------------------------------------------------------------------------//
+    // CONSTRUCTORS
+    
     public CommentDTO () {}
     public CommentDTO (String text, Date date, AuthorDTO author)
     {
@@ -21,6 +27,9 @@ public class CommentDTO implements Serializable
         this.author = author;
     }
 
+    //------------------------------------------------------------------------//
+    // GETTERS / SETTERS
+    
     public String getText ()
     {
         return text;
