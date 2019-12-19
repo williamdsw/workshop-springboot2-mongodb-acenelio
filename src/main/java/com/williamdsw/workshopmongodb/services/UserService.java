@@ -25,28 +25,33 @@ public class UserService
     //------------------------------------------------------------------------//
     // HELPER FUNCTIONS
     
+    // Encontra lista completa
     public List<User> findAll ()
     {
         return repository.findAll ();
     }
     
+    // Encontra objeto pelo ID
     public User findById (String id)
     {
         Optional<User> user = repository.findById (id);
         return user.orElseThrow (() -> new ObjectNotFoundException (String.format ("Usuário não encontrado com id = %s", id)));
     }
     
+    // Insere
     public User insert (User user)
     {
         return repository.insert (user);
     }
     
+    // Exclui
     public void delete (String id)
     {
         findById (id);
         repository.deleteById (id);
     }
     
+    // Atualiza
     public User update (User newUser)
     {
         User user = findById (newUser.getId ());
@@ -54,11 +59,13 @@ public class UserService
         return repository.save (user);
     }
     
+    // Converte com dados do DTO
     public User fromDTO (UserDTO dto)
     {
         return new User (dto.getId (), dto.getName (), dto.getEmail ());
     }
     
+    // Atualiza dados de um objeto para outro
     public void updateData (User newUser, User user)
     {
         user.setName (newUser.getName ());

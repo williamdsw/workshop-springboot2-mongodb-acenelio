@@ -25,18 +25,21 @@ public class PostService
     //------------------------------------------------------------------------//
     // HELPER FUNCTIONS
     
+    // Encontra objeto pelo ID
     public Post findById (String id)
     {
         Optional<Post> post = repository.findById (id);
         return post.orElseThrow (() -> new ObjectNotFoundException (String.format ("Post não encontrado com id %s", id)));
     }
     
+    // Encontra lista por titulo
     public List<Post> findByTitle (String title)
     {
         //return repository.findByTitleContainingIgnoreCase (title);
         return repository.searchTitle (title);
     }
     
+    // Encontra lista com busca completa
     public List<Post> fullSearch (String text, Date startDate, Date endDate)
     {
         long twentyFourHours = (24 * 60 * 60 * 1000);
